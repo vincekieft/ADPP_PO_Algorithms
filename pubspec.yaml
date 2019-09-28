@@ -1,0 +1,4 @@
+name: PO_Algoritmes
+
+dev_dependencies:
+  test: ^1.8.0
