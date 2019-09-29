@@ -17,16 +17,12 @@ class Pathfinder {
 
     while(!queue.isEmpty) {
       current = queue.removeFirst(); // Set lowest cost node in queue to new current node
-      //print('');
-      //print('current: '+current.vertex.identifier.toString());
 
       if(current.vertex.identifier == end.identifier) return backtraceSolution(start, current, [current.vertex]); // Found solution
       visited[current.vertex.identifier] = current.vertex; // Add current node to visited map
 
       for(IEdge edge in current.vertex.neighbours){
         IVertex vertex = edge.vertex;
-
-        //print(vertex.identifier);
 
         // Visited neighbours are never visited again
         if(visited.containsKey(vertex.identifier)) continue;

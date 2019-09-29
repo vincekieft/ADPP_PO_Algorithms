@@ -3,6 +3,7 @@ import 'package:PO_Algoritmes/shortest_path/grid_graph/grid_graph.dart';
 import 'package:PO_Algoritmes/shortest_path/grid_graph/grid_graph_util.dart';
 import 'package:PO_Algoritmes/shortest_path/i_edge.dart';
 import 'package:PO_Algoritmes/shortest_path/i_vertex.dart';
+import 'package:vector_math/vector_math.dart';
 
 class GridVertex implements IVertex {
 
@@ -41,9 +42,9 @@ class GridVertex implements IVertex {
   // Public methods
   void initializeNeighbours(){
     _neighbours = List<GridEdge>();
-    List<int> coordinates = GridGraphUtil.indexToCoordinate(_identifier, _graph.xCount);
-    int x = coordinates[0];
-    int y = coordinates[1];
+    List<int> coords = coordinates;
+    int x = coords[0];
+    int y = coords[1];
 
     _addNeighbourToList(x - 1, y, _neighbours); // left
     _addNeighbourToList(x + 1, y, _neighbours); // right
@@ -51,4 +52,7 @@ class GridVertex implements IVertex {
     _addNeighbourToList(x, y - 1, _neighbours); // bottom
   }
 
+  List<int> get coordinates => GridGraphUtil.indexToCoordinate(_identifier, _graph.xCount);
+  Vector2 get coordinatesVector => Vector2(coordinates[0].toDouble(), coordinates[1].toDouble());
+  GridGraph get graph => _graph;
 }

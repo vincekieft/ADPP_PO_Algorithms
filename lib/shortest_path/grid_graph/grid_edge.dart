@@ -1,16 +1,28 @@
+import 'dart:math';
+import 'package:PO_Algoritmes/shortest_path/grid_graph/grid_vertex.dart';
+import 'package:PO_Algoritmes/shortest_path/grid_graph/obstacles/i_obstacle.dart';
 import 'package:PO_Algoritmes/shortest_path/i_edge.dart';
-import 'package:PO_Algoritmes/shortest_path/i_vertex.dart';
 
 class GridEdge implements IEdge {
 
-  final IVertex _vertex;
+  final GridVertex _vertex;
 
   GridEdge(this._vertex);
 
   @override
-  double get cost => 1;
+  double get cost {
+    double cost = 1.0;
+
+    for(IObstacle obstacle in _vertex.graph.obstacles){
+      double obstacleCost = obstacle.obstacleCost(_vertex);
+      if(obstacleCost == null) return null;
+      cost = max(cost, obstacleCost);
+    }
+
+    return cost;
+  }
 
   @override
-  IVertex get vertex => _vertex;
+  GridVertex get vertex => _vertex;
 
 }

@@ -1,5 +1,6 @@
 import 'package:PO_Algoritmes/shortest_path/grid_graph/grid_graph_util.dart';
 import 'package:PO_Algoritmes/shortest_path/grid_graph/grid_vertex.dart';
+import 'package:PO_Algoritmes/shortest_path/grid_graph/obstacles/i_obstacle.dart';
 import 'package:PO_Algoritmes/shortest_path/i_graph.dart';
 import 'package:PO_Algoritmes/shortest_path/i_vertex.dart';
 
@@ -7,9 +8,10 @@ class GridGraph implements IGraph {
 
   final int _xCount;
   final int _yCount;
+  final List<IObstacle> _obstacles;
   List<GridVertex> _grid;
 
-  GridGraph(this._xCount, this._yCount){
+  GridGraph(this._xCount, this._yCount, [this._obstacles = const []]){
     generateGraph();
   }
 
@@ -40,17 +42,18 @@ class GridGraph implements IGraph {
   // Getters
   int get xCount => _xCount;
   int get yCount => _yCount;
+  List<IObstacle> get obstacles => _obstacles;
 
   @override
   String toString({ List<IVertex> path = const [] }) {
     List<String> rows = [];
     List<int> pathIdentifiers = path.map<int>((IVertex vertex) => vertex.identifier).toList();
 
-    print(pathIdentifiers);
     for(int y = 0; y < yCount; y++){
       List<String> vertices = List.generate(xCount, (int xIndex){
-        if(pathIdentifiers.contains(GridGraphUtil.coordinateToIndex(xIndex, y, xCount))) return '*';
-
+        int index = GridGraphUtil.coordinateToIndex(xIndex, y, xCount);
+        if(pathIdentifiers.contains(index)) return '*';
+        for(IObstacle obstacle in obstacles) if(obstacle.isInsideObstacle(findVertexById(index))) return '?';
         return '.';
       });
 
