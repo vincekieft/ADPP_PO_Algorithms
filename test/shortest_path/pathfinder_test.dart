@@ -12,6 +12,7 @@ void main(){
       Pathfinder pathfinder = Pathfinder();
       List<IVertex> path = pathfinder.shortestPath(gridGraph.findVertexById(0), gridGraph.findVertexById(8));
       List<int> identifiers = path.map<int>((IVertex vertex) => vertex.identifier).toList();
+      print(gridGraph.toString(path: path));
       expect(identifiers, [0,3,6,7,8]);
     });
 
@@ -20,6 +21,7 @@ void main(){
       Pathfinder pathfinder = Pathfinder();
       List<IVertex> path = pathfinder.shortestPath(gridGraph.findVertexById(0), gridGraph.findVertexById(8));
       List<int> identifiers = path.map<int>((IVertex vertex) => vertex.identifier).toList();
+      print(gridGraph.toString(path: path));
       expect(identifiers, [0, 1, 2, 3, 4, 5, 6, 7, 8]);
     });
 
@@ -28,6 +30,7 @@ void main(){
       Pathfinder pathfinder = Pathfinder();
       List<IVertex> path = pathfinder.shortestPath(gridGraph.findVertexById(0), gridGraph.findVertexById(252));
       List<int> identifiers = path.map<int>((IVertex vertex) => vertex.identifier).toList();
+      print(gridGraph.toString(path: path));
       expect(identifiers, [0,20,40,60,80,100,101,102,103,123,143,144,145,165,166,167,168,169,170,190,210,211,212,232,252]);
     });
 

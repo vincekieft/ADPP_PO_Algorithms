@@ -36,7 +36,11 @@ class GridVertex implements IVertex {
        y >= _graph.yCount) return;
 
     int index = GridGraphUtil.coordinateToIndex(x, y, _graph.xCount);
-    neighbourList.add(GridEdge(_graph.findVertexById(index)));
+    GridEdge edge = GridEdge(_graph.findVertexById(index));
+
+    if(edge.cost == null) return; // Obstacle in the way
+
+    neighbourList.add(edge);
   }
 
   // Public methods
