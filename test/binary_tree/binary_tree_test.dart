@@ -82,6 +82,83 @@ void main(){
       expect(tree.findMax(), 7);
     });
 
+    test('Remove left leaf', (){
+      BinaryTree tree = BinaryTree();
+      tree.insert(6);
+      tree.insert(5);
+
+      expect(tree.find(5), 5);
+
+      tree.remove(5);
+
+      expect(() => tree.find(5), throwsException);
+      expect(tree.root.key, 6);
+      expect(tree.root.left, null);
+    });
+
+    test('Remove node with single child', (){
+      BinaryTree tree = BinaryTree();
+      tree.insert(6);
+      tree.insert(5);
+      tree.insert(4);
+
+      tree.remove(5);
+
+      expect(() => tree.find(5), throwsException);
+      expect(tree.findMin(), 4);
+      expect(tree.root.left.key, 4);
+    });
+
+    test('Remove root with single child', (){
+      BinaryTree tree = BinaryTree();
+      tree.insert(6);
+      tree.insert(5);
+
+      tree.remove(6);
+
+      expect(tree.findMax(), 5);
+    });
+
+    test('Remove root with multiple childs', (){
+      BinaryTree tree = BinaryTree();
+      tree.insert(10);
+      tree.insert(11);
+      tree.insert(9);
+
+      tree.remove(10);
+
+      expect(tree.root.key, 11);
+      expect(() => tree.find(10), throwsException);
+
+    });
+
+    test('Remove node with multiple childs', (){
+      BinaryTree tree = BinaryTree();
+      tree.insert(6);
+      tree.insert(8);
+      tree.insert(10);
+      tree.insert(7);
+
+      tree.remove(8);
+
+      expect(tree.root.right.key, 10);
+      expect(() => tree.find(8), throwsException);
+    });
+
+    test('Remove root only leaft', (){
+      BinaryTree tree = BinaryTree();
+
+      tree.insert(10);
+      tree.remove(10);
+
+      expect(tree.root, null);
+    });
+
+    test('Remove unknown node', (){
+      BinaryTree tree = BinaryTree();
+      expect(() => tree.remove(10), throwsException);
+    });
+
   });
 
 }
